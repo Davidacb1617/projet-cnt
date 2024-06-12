@@ -5,30 +5,30 @@ import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class ServicesCntService {
-  constructor(private prisma: PrismaService){}
+  constructor(private prisma: PrismaService) {}
 
   create(CreateServicesCntDto: CreateServicesCntDto) {
-    return this.prisma.services.create({ data: CreateServicesCntDto});
+    return this.prisma.services.create({ data: CreateServicesCntDto });
   }
 
   findAll() {
-    return this.prisma.services.findMany();
+    return this.prisma.services.findMany({
+      where: { id: { not: 0 } },
+    });
   }
 
   findOne(id: number) {
-    return this.prisma.services.findUnique({where: {id} });
-    ;
+    return this.prisma.services.findUnique({ where: { id } });
   }
 
   update(id: number, updateServicesCntDto: UpdateServicesCntDto) {
-    return this.prisma.services.update ({
-      where: {id},
+    return this.prisma.services.update({
+      where: { id },
       data: updateServicesCntDto,
     });
   }
 
   remove(id: number) {
-    return this.prisma.services.delete({ where: {id} });
+    return this.prisma.services.delete({ where: { id } });
   }
-
-  }
+}
